@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pokemon Math Battle</title>
+
+<style>
+body{
+font-family:Arial;
+text-align:center;
+background:#eef6ff;
+}
+
+button{
+font-size:20px;
+padding:10px;
+margin:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Pokemon Math Battle</h1>
+
+<h2 id="enemy"></h2>
+
+<p id="question"></p>
+
+<div id="answers"></div>
+
+<p id="log"></p>
+
+<script>
+
+let enemyHP = 3
+let correct
+
+start()
+
+function start(){
+
+enemyHP = 3
+
+document.getElementById("enemy").innerText =
+"Wild Pikachu appeared!"
+
+newQuestion()
+
+}
+
+function newQuestion(){
+
+let a = Math.floor(Math.random()*10)
+let b = Math.floor(Math.random()*10)
+
+correct = a + b
+
+document.getElementById("question").innerText =
+a + " + " + b + " = ?"
+
+let answers = [correct, correct+1, correct-1, correct+2]
+
+answers.sort(()=>Math.random()-0.5)
+
+let div = document.getElementById("answers")
+
+div.innerHTML = ""
+
+answers.forEach(n=>{
+
+let btn = document.createElement("button")
+
+btn.innerText = n
+
+btn.onclick = ()=>choose(n)
+
+div.appendChild(btn)
+
+})
+
+}
+
+function choose(n){
+
+if(n === correct){
+
+enemyHP--
+
+document.getElementById("log").innerText =
+"Correct!"
+
+}else{
+
+document.getElementById("log").innerText =
+"Wrong!"
+
+}
+
+if(enemyHP <= 0){
+
+document.getElementById("log").innerText =
+"You defeated Pikachu!"
+
+setTimeout(start,1000)
+
+}else{
+
+setTimeout(newQuestion,500)
+
+}
+
+}
+
+</script>
+
+</body>
